@@ -120,3 +120,18 @@ docker run -d --name c3 redis
    94  docker exec -it ramancontainer cat /var/www/html/index.html
 
 ```
+
+
+```
+
+root@raman-docker:~# cat ramandockerfile
+FROM centos:7
+MAINTAINER  Raman Khanna raman.khanna@email.com
+RUN mkdir /dataforaman
+RUN yum update -y
+RUN yum -y install httpd   php
+RUN echo " DevOps and Cloud" > /var/www/html/index.html
+EXPOSE 80
+CMD ["/bin/bash"]
+
+```
