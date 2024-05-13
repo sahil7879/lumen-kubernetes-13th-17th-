@@ -139,6 +139,39 @@ CMD ["/bin/bash"]
 
 ```
 
+
+
+purpose : manage containers :
+
+master : managements components  (pods_
+
+worker : my ownapplications (pods)
+
+
+
+kubeadm Kubernetes cluster :
+
+3 nodes : master/controlplane , 2 worker nodes 
+
+
+
+https://v1-29.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+https://v1-29.docs.kubernetes.io/docs/reference/networking/ports-and-protocols/
+
+
+
+
+
+calico , flannel , weave
+
+
+
+
+
+
+
+
   70  k get nodes
    71  k get nodes -o wide
    72  kubectl get ns
