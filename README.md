@@ -135,3 +135,29 @@ EXPOSE 80
 CMD ["/bin/bash"]
 
 ```
+
+
+```
+
+  70  k get nodes
+   71  k get nodes -o wide
+   72  kubectl get ns
+   73  clear
+   74  kubectl get pods
+   75  kubectl get ns
+   76  kubectl get pods -n kube-system
+   77  kubectl get pods -n kube-system -o wide
+   78  clear
+   79  kubectl get pods -n kube-system -o wide | grep master
+   80  kubectl get pods -n kube-system -o wide | grep w1
+   81  kubectl get pods -n kube-system -o wide | grep w2
+   82  clear
+   83  kubectl get pods -n kube-system -o wide
+   84  clear
+   85  k get nodes
+   86  k get pods
+   87  k create ns raman
+   88  k get ns
+   89  history
+
+```
