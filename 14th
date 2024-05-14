@@ -113,3 +113,147 @@ spec:
 
 
 ```
+
+
+
+```
+
+
+k get api-resources
+  220  k get api-resource
+  221  k api-resource
+  222  k api-resources
+  223  clear
+  224  ls
+  225  k get pods
+  226  k get pods -n raman
+  227  k delete podnginxpod
+  228  k delete pod nginxpod
+  229  k delete pod nginxpod -n raman
+  230  k get pods -n raman
+  231  ls
+  232  clear
+  233  k get all
+  234  k get all -n raman
+  235  k describe pod multiconpod -n raman
+  236  k describe pod muticonpod -n raman
+  237  clear
+  238  k get pods -n raman
+  239  cat pod2.yml
+  240  k describe pod muticonpod -n raman  | grep -i label
+  241  vi pod2.yml
+  242  k apply -f pod2.yml
+  243  k describe pod muticonpod -n raman  | grep -i label
+  244  k get pods -n raman --selector "name=lumen"
+  245  k get pods -A --selector "name=lumen"
+  246  clear
+  247  k api-resources
+  248  clear
+  249  k run ramanapp --image httpd
+  250  k get pods
+  251  k describe pod
+  252  k get pods
+  253  clear
+  254  k get pods
+  255  clear
+  256  ls
+  257  mkdir ramanyamlfiles
+  258  cp pod.yml pod2.yml ramanyamlfiles/
+  259  ls
+  260  cd ramanyamlfiles/
+  261  ls
+  262  vi deploy.yml
+  263  clear
+  264  vi deploy.yml
+  265  k create -f deploy.yml
+  266  vi deploy.yml
+  267  k create -f deploy.yml
+  268  k get pods
+  269  k delete deploy --all
+  270  k delete deploy pods --all
+  271* k delete pods --all
+  272  clear
+  273  k create -f deploy.yml -n raman
+  274  k get pods
+  275  k get pods -n raman
+  276  k k get deploy -n raman
+  277  k get deploy -n raman
+  278  k get rs -n raman
+  279  k get pods -n raman
+  280  vi deploy.yml
+  281  k apply -f deploy.yml -n raman
+  282  k k get deploy -n raman
+  283  k get deploy -n raman
+  284  k get rs -n raman
+  285  k get pods -n raman
+  286  vi deploy.yml
+  287  k apply -f deploy.yml -n raman
+  288  clear
+  289  k get deploy -n raman
+  290  k get rs -n raman
+  291  k get pods -n raman
+  292  vi deploy.yml
+  293  k delete pod -n raman nginx-deployment-658cf68d75-4qrsj
+  294  k get pods -n raman
+  295  k delete deployment nginx-deployment -n raman
+  296  k get pods -n raman
+  297  k apply -f deploy.yml -n raman
+  298  k get pods -n raman
+  299  k delete -f deploy deploy.yml
+  300  ls
+  301  k delete -f deploy.yml
+  302  k delete -f deploy.yml -n raman
+  303  k get pods
+
+
+
+
+
+
+root@master:~/ramanyamlfiles# cat deploy.yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: raman
+  template:
+    metadata:
+      labels:
+        app: raman
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deployment
+#  namespace: raman
+  labels:
+    app: httpd
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpdcon
+        image: httpd
+        ports:
+        - containerPort: 80
+
+```
