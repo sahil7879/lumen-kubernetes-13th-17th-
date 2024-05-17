@@ -1,0 +1,118 @@
+ingress conroller setup :
+
+Note : make sure latest aws cli installed ..
+
+alias k=kubectl
+   22  k get nodes
+
+helm insall :
+
+   23  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+   24  $ chmod 700 get_helm.sh
+   25  curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+   26  chmod 700 get_helm.sh
+   27  ./get_helm.sh
+   28  k ge ns
+   29  k get ns
+   30  k create ns ingress
+   31  clear
+
+   32  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+   33  helm repo update
+ 
+   35  helm list
+   36  helm repo list
+
+
+Note : below command will work when made change in kubeconfig file : apiVersion: client.authentication.k8s.io/v1beta1
+
+helm install my-release ingress-nginx/ingress-nginx \
+ --namespace ingress \
+ --set controller.replicaCount=2 \
+ --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+ --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
+
+   
+   40  ls -a
+   41  cd .kube/
+   42  ls
+   43  cat config
+   44  vi config
+   45  k get pods
+   46  k get nodes
+   47  vi config
+
+
+---- execute below deploymnt , service , ingress resource : in ingress ns
+
+root@kube-worker2:~/.kube# cat dep.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app
+  labels:
+    app: test-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-app
+  template:
+    metadata:
+      labels:
+        app: test-app
+    spec:
+      containers:
+      - name: test-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 50m
+            memory: 64Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: raman-service
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: test-app
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: test-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: 'nginx'
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /raman(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: raman-service
+            port:
+              number: 80
+
+
+
+
+--- k create -f ingress.yaml -n ingress
+
+
+---- now try to add more deploymnt , add a service and add a new path in ingress to get a new api on alb dns
+
+
